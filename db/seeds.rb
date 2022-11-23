@@ -19,6 +19,22 @@ puts "Creating restaurants..."
  address: Faker::Address.full_address,
 phone_number: Faker::PhoneNumber.phone_number,
 category: ["chinese", "italian", "japanese", "french", "belgian"].sample
-) end
+)
+end
+
+puts "Finished!"
+
+puts "Cleaning database..."
+Review.destroy_all
+
+puts "Creating reviews..."
+
+10.times do
+  Review.create!(
+    content: Faker::Restaurant.review,
+  rating: rand(0..5),
+  restaurant_id: Restaurant.all.sample.id
+  )
+end
 
 puts "Finished!"
